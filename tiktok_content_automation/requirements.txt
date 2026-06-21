@@ -1,0 +1,7 @@
+typer[all]==0.12.5
+rich==13.8.1
+python-dotenv==1.0.1
+pydantic==2.9.2
+google-api-python-client==2.147.0
+youtube-transcript-api==0.6.2
+moviepy==1.0.3
