@@ -81,11 +81,11 @@ def print_candidate_table(plan: WeeklyPlan) -> None:
 
 @app.command()
 def weekly(
-    max_per_query: int = typer.Option(5, help="YouTube results per search query."),
-    max_candidates: int = typer.Option(25, help="Maximum candidates to transcript-check."),
-    max_clips_per_video: int = typer.Option(2, help="Maximum clip ideas per video."),
-    since_days: int | None = typer.Option(None, help="Only search videos published in the last N days."),
-    out_dir: Path = typer.Option(Path("data/weekly"), help="Output directory."),
+    max_per_query: int = typer.Option(5, "--max-per-query", help="YouTube results per search query."),
+    max_candidates: int = typer.Option(25, "--max-candidates", help="Maximum candidates to transcript-check."),
+    max_clips_per_video: int = typer.Option(2, "--max-clips-per-video", help="Maximum clip ideas per video."),
+    since_days: int | None = typer.Option(None, "--since-days", help="Only search videos published in the last N days."),
+    out_dir: Path = typer.Option(Path("data/weekly"), "--out-dir", help="Output directory."),
 ) -> None:
     load_dotenv()
     published_after = None
@@ -128,10 +128,10 @@ def weekly(
 @app.command("clip-local")
 def clip_local(
     source_path: Path = typer.Argument(..., help="Local source video path you have rights to use."),
-    start: float = typer.Option(..., help="Start time in seconds."),
-    end: float = typer.Option(..., help="End time in seconds."),
-    output_path: Path = typer.Option(Path("data/clips/output.mp4"), help="Output MP4 path."),
-    vertical: bool = typer.Option(True, help="Crop to 9:16 vertical."),
+    start: float = typer.Option(..., "--start", help="Start time in seconds."),
+    end: float = typer.Option(..., "--end", help="End time in seconds."),
+    output_path: Path = typer.Option(Path("data/clips/output.mp4"), "--output-path", help="Output MP4 path."),
+    vertical: bool = typer.Option(True, "--vertical/--no-vertical", help="Crop to 9:16 vertical."),
 ) -> None:
     output = clip_local_video(
         source_path=source_path,
@@ -146,9 +146,9 @@ def clip_local(
 @app.command("srt-youtube")
 def srt_youtube(
     video_id: str = typer.Argument(..., help="YouTube video ID."),
-    start: float = typer.Option(0.0, help="Clip start time in seconds."),
-    end: float | None = typer.Option(None, help="Clip end time in seconds."),
-    output_path: Path = typer.Option(Path("data/captions/captions.srt"), help="Output SRT path."),
+    start: float = typer.Option(0.0, "--start", help="Clip start time in seconds."),
+    end: float | None = typer.Option(None, "--end", help="Clip end time in seconds."),
+    output_path: Path = typer.Option(Path("data/captions/captions.srt"), "--output-path", help="Output SRT path."),
 ) -> None:
     transcript = get_youtube_transcript(video_id)
     output = write_srt(transcript, output_path=output_path, start=start, end=end)

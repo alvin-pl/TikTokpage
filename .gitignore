@@ -1,0 +1,8 @@
+
+.env
+*.env
+__pycache__/
+*/__pycache__/
+tiktok_content_automation/.env
+
+tiktok_content_automation/data/
